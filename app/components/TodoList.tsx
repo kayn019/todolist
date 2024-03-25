@@ -3,6 +3,7 @@ import { todo } from 'node:test';
 import { useState, useEffect } from 'react';
 import { MdOutlineDeleteOutline } from "react-icons/md";
 import { IoAddCircleOutline } from "react-icons/io5";
+import Modal from './Modal';
 
 const TodoList = () => {
     const [currentProjectIndex, setCurrentProjectIndex] = useState('Home');
@@ -10,7 +11,14 @@ const TodoList = () => {
     const storedProjects = JSON.parse(localStorage.getItem("projects"));
     const [projects, setProjects] = useState(storedProjects || []);
     const [inputValue, setInputValue] = useState('');
+    const [projectName, setProjectName] = useState('');
     const [todos, setTodos] = useState(storedTodoList || []);
+
+    const [isModalOpen, setIsModalOpen] = useState(false);
+
+    const toggleModal = () => {
+      setIsModalOpen(!isModalOpen);
+    };
   
     useEffect(() => {
       const savedProjects = localStorage.getItem('projects');
@@ -61,13 +69,14 @@ const TodoList = () => {
       setTodos(updatedTodos);
     };
   
-    const handleAddProject = () => {
-      const projectName = prompt('Enter project name:');
+    const handleAddProject = (e) => {
+        e.preventDefault();
       if (projectName) {
         setProjects([...projects, projectName]);
         setCurrentProjectIndex(projectName);
         localStorage.setItem(`todos-${projectName}`, JSON.stringify([]));
       }
+      toggleModal();
     };
   
     const handleDeleteProject = (project) => {
@@ -108,7 +117,7 @@ const TodoList = () => {
             ))}
             
         </div>
-        <button className="bg-green-300 hover:bg-green-400 text-gray-800 font-bold py-2 px-4 rounded inline-flex items-center ml-5 mt-5  h-auto" onClick={handleAddProject}>
+        <button className="bg-green-300 hover:bg-green-400 text-gray-800 font-bold py-2 px-4 rounded inline-flex items-center ml-5 mt-5  h-auto" onClick={toggleModal}>
             <h5 className='mr-2'>Add Project</h5>
             <IoAddCircleOutline /></button>
       </div>
@@ -144,6 +153,11 @@ const TodoList = () => {
         ))}
       </ul>
       </div>
+
+      <Modal isOpen={isModalOpen} onClose={toggleModal} handleAddProject={handleAddProject}
+      inputValue={projectName} setInputValue={setProjectName} >
+      
+      </Modal>
     </div>
   );
 };
