@@ -6,12 +6,15 @@ import { IoAddCircleOutline } from "react-icons/io5";
 import Modal from './Modal';
 
 const TodoList = () => {
+  if (typeof window !== 'undefined') {
     const [currentProjectIndex, setCurrentProjectIndex] = useState('Home');
-    const storedTodoList = JSON.parse(localStorage.getItem(`todos-${currentProjectIndex}`));
-    const storedProjects = JSON.parse(localStorage.getItem("projects"));
-    const [projects, setProjects] = useState(storedProjects || []);
+    
+    const storedTodoList = JSON.parse(localStorage.getItem(`todos-${currentProjectIndex}`)!);
+    const storedProjects = JSON.parse(localStorage.getItem("projects")!);
+    
     const [inputValue, setInputValue] = useState('');
     const [projectName, setProjectName] = useState('');
+    const [projects, setProjects] = useState(storedProjects || []);
     const [todos, setTodos] = useState(storedTodoList || []);
 
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -106,11 +109,11 @@ const TodoList = () => {
         <div className='flex flex-col '>
             
             {projects.map((project, index) => (
-            <div className=" flex justify-between ">
+            <div key={index} className=" flex justify-between ">
                 <button key={index} className='hover:bg-slate-300' onClick={() => handleProjectChange(project)}>
                     {project}
                 </button>
-                    <button onClick={() => handleDeleteProject(project)}>
+                    <button key={index} onClick={() => handleDeleteProject(project)}>
                     <MdOutlineDeleteOutline />
                     </button>
             </div>
@@ -160,6 +163,7 @@ const TodoList = () => {
       </Modal>
     </div>
   );
+        }
 };
 
 export default TodoList;
