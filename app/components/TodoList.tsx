@@ -146,7 +146,7 @@ const TodoList = () => {
       </div>
 
       {/* right side */}
-      <div className="p-10 w-full bg-white bg-gradient-to-b from-gray-100 sm:bg-gradient-to-r sm:from-gray-100">
+      <div className="p-10 w-full bg-white bg-gradient-to-b from-gray-100 sm:bg-gradient-to-r sm:from-gray-100 text-black">
         <div className="text-3xl font-black mb-10">{currentProjectIndex}</div>
 
         <input
