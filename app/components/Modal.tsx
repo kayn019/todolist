@@ -13,7 +13,7 @@ const Modal = ({
 
   return (
     <div className="fixed  z-50 inset-0 bg-gray-900 bg-opacity-60 overflow-y-auto h-full w-full mx-auto px-4 ">
-      <div className="relative top-40 mx-auto shadow-xl rounded-md bg-white max-w-md p-5">
+      <div className="relative top-40 mx-auto shadow-xl rounded-md bg-white max-w-md p-5 text-black">
         <form onSubmit={handleAddProject}>
           <h3 className="font-bold text-lg">Add new Project</h3>
           <div className="modal-action">
@@ -26,13 +26,13 @@ const Modal = ({
             />
             <button
               type="submit"
-              className="btn bg-green-500 hover:bg-green-600 py-1 px-2 mr-2 rounded-sm font-medium"
+              className="btn bg-green-500 hover:bg-green-600 py-1 px-2 mr-2 rounded-sm font-medium text-white"
             >
               Submit
             </button>
             <button
               type="reset"
-              className="btn bg-red-500 hover:bg-red-600 py-1 px-2 rounded-sm font-medium"
+              className="btn bg-red-500 hover:bg-red-600 py-1 px-2 rounded-sm font-medium text-white"
               onClick={onClose}
             >
               Cancel
